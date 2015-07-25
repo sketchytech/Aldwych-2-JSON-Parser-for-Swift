@@ -1,8 +1,10 @@
 import Foundation
-
+protocol JSONGeneratorProtocol:GeneratorType {
+    
+}
 // MARK: Sequence type
 // Array Generator
-public struct JSONGenerator:GeneratorType {
+public struct JSONGenerator:JSONGeneratorProtocol {
     // use dictionary with index as keys for position in array
     let value:JSONValue
     var indexInSequence:Int = 0
@@ -12,7 +14,7 @@ public struct JSONGenerator:GeneratorType {
         
     }
     
-    mutating public func next() -> (Swift.String,JSONValue)? {
+    mutating public func next() -> (String,JSONValue)? {
         switch value {
         case .JArray (let Array) where !Array.isEmpty:
             
@@ -56,9 +58,10 @@ public struct JSONGenerator:GeneratorType {
 
 
 
-extension JSONValue: SequenceType   {
-    
-    public typealias Generator = JSONGenerator
+extension JSONValue: SequenceType  {
+   
+    public typealias Generator  = JSONGenerator
+
     public func generate() -> Generator {
         
         let gen = Generator(value: self)

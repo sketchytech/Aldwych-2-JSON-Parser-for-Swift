@@ -15,4 +15,3 @@ if let url = NSBundle.mainBundle().URLForResource("styles", withExtension: "xml"
         let d = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" + XMLParser.json2xml(c)!
         
 }
-

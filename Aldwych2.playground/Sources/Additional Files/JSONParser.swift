@@ -11,9 +11,9 @@ public enum JSONError:ErrorType {
     case JSONValueError(String), DataError(String), FileError(String), URLError(String)
 }
 // receive data
-public struct JSONParser {
+public struct JSONParser:JSONParserType {
    
-    public static func parse(urlPath urlPath:String) throws -> JSONValue {
+    public static func parse(urlPath urlPath:String) throws -> JSONObjectType {
     
         guard let url = NSURL(string:urlPath) else {
             throw JSONError.FileError("URL with path \(urlPath) is not responding to request.")
@@ -21,7 +21,7 @@ public struct JSONParser {
         return try parse(url)
 }
     
-    public static func parse(fileNamed fileName:String) throws -> JSONValue {
+    public static func parse(fileNamed fileName:String) throws -> JSONObjectType {
         let pE = fileName.pathExtension
         let name = fileName.stringByDeletingPathExtension
         guard let url = NSBundle.mainBundle().URLForResource(name, withExtension: pE) else {
@@ -30,25 +30,25 @@ public struct JSONParser {
         return try parse(url)
     }
     
-    public static func parse(url:NSURL) throws -> JSONValue {
+    public static func parse(url:NSURL) throws -> JSONObjectType {
         guard let d = NSData(contentsOfURL: url) else {
         throw JSONError.DataError("Failed to retrieve data from NSURL.")
         }
         return try parse(d)
     }
     
-    public static func parse(json:NSData) throws -> JSONValue {
+    public static func parse(json:NSData) throws -> JSONObjectType {
 
         guard let jsonObject: AnyObject? = try NSJSONSerialization.JSONObjectWithData(json, options:[]) else {
         throw JSONError.JSONValueError("NSJSONSerialization returned nil.")
         }
 
         if let js = jsonObject as? [String:AnyObject] {
-                let a = JSONValue(dictionary: js)
+                let a = JSONDictionary(dictionary: js)
                 return a
         }
         else if let js = jsonObject as? [AnyObject] {
-                return JSONValue(array:js)
+                return JSONArray(array: js)
         }
         throw JSONError.JSONValueError("Not a valid dictionary or array for parsing into JSONValue.")
         

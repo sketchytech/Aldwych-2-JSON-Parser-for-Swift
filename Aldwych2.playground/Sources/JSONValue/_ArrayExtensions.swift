@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: Extract Array
-extension JSONValue {
+extension JSONValue: JSONArrayProtocol {
     public var array:[AnyObject] {
         var array = [AnyObject](count: self.count, repeatedValue: 0)
         switch self {
@@ -86,7 +86,7 @@ extension JSONValue {
     }
     
     
-    public subscript (key:Int) -> Swift.String? {
+    public subscript (key:Int) -> String? {
         get {
             switch self {
             case .JArray (let a):
@@ -280,7 +280,7 @@ extension JSONValue {
 
 // MARK: Insert methods
 extension JSONValue {
-public mutating func insert(str:Swift.String, atIndex ind:Int) {
+public mutating func insert(str:String, atIndex ind:Int) {
     switch self {
     case .JArray(var array):
         array.insert(JSONValue(str), atIndex: ind)
@@ -318,7 +318,7 @@ public mutating func insert(null:NSNull, atIndex ind:Int) {
         return
     }}
 
-public mutating func insert(dict:[Swift.String: AnyObject], atIndex ind:Int) {
+public mutating func insert(dict:[String: AnyObject], atIndex ind:Int) {
         switch self {
         case .JArray(var array):
             array.insert(JSONValue(dictionary: dict), atIndex: ind)

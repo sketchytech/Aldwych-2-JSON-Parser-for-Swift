@@ -7,10 +7,10 @@ import Foundation
 # Retrieving values
 Handling JSON is all about remaining type safe, knowing what it is you are expecting to have returned so that values can be transported into core Swift types.
 */
-var jsonValue:JSONValue?
+var jsonValue:JSONDictionary?
 
 do {
-    jsonValue = try JSONParser.parse(fileNamed: "iTunes.json")
+    jsonValue = try JSONParser.parse(fileNamed: "iTunes.json") as? JSONDictionary
 }
 catch let e  {
     errorString(error: e)
@@ -41,27 +41,28 @@ if let json = jsonValue where json.jsonDict != nil
     
     json["results"]?[0]?["artistName"]?.str
 }
-//: Note that for arrays we can follow a similarly familiar pattern, but you must currently use (_,v) rather than simply v. This is a current limitation of the JSONValue type, which I would like to fix but I've yet to find a way of doing this without a large expansion in code and greater compromises in other areas. I am hopeful, however, that a future version of Swift will enable (_,v) to become simply v.
+/*:
+For arrays we can follow a similarly familiar pattern when using the JSONArray type.
 
-if let json = jsonValue where json.jsonArr != nil
-{
-    for (_,v) in json {
-        if let s = v.str {
-            print(s)
-        }
-        if let n = v.num {
-            print(n)
-        }
-        if let n = v.null {
-            print(n)
-        }
-        if let a = v.jsonArr {
-            print(a)
-        }
-        if let d = v.jsonDict {
-            print(d)
-        }
-    }
+if let json = jsonValue where json.jsonArr != nil {
+for v in json {
+if let s = v.str {
+print(s)
 }
+if let n = v.num {
+print(n)
+}
+if let n = v.null {
+print(n)
+}
+if let a = v.jsonArr {
+print(a)
+}
+if let d = v.jsonDict {
+print(d)
+}
+}
+}
+*/
 
 //: [Next](@next)

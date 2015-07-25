@@ -1,0 +1,28 @@
+//
+//  DictionaryProtocol.swift
+//  Aldwych_2_1
+//
+//  Created by A J LEVINGS on 25/07/2015.
+//  Copyright © 2015 Gylphi. All rights reserved.
+//
+
+import Foundation
+
+protocol JSONDictionaryProtocol {
+    var dictionary:Dictionary<String,AnyObject> { get }
+    var nsDictionary:NSDictionary { get }
+    
+    subscript (key:String) -> JSONValue? { get set }
+    subscript (key:String) -> String? { get set }
+    subscript (key:String) -> NSNumber? { get set }
+    subscript (key:String) -> Bool? { get set }
+    subscript (key:String) -> NSNull? { get set }
+    
+    var jsonDict:[String:JSONValue]? { get }
+    var jsonDictOpt:[String:JSONValue]?? { get }
+    
+    func jsonData(options:NSJSONWritingOptions, error:NSErrorPointer) -> NSData?
+    func stringify(options:NSJSONWritingOptions, error:NSErrorPointer) -> String?
+
+
+}

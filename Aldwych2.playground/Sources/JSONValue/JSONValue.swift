@@ -167,7 +167,7 @@ extension JSONValue {
 
 extension JSONValue:CustomStringConvertible {
 
-    public var description:Swift.String {
+    public var description:String {
         
         switch self {
         case .JDictionary( _):
