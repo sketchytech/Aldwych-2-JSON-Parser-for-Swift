@@ -16,5 +16,3 @@ if let url = NSBundle.mainBundle().URLForResource("styles", withExtension: "xml"
         
 }
 
-
-//: [Next](@next)

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F51B9556BA35A43D854EDC51F22399E51CD95520",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "D7432D4CE4D5866B9AD7A60910EA08E3FC1E7CB0" : 0,
+    "F51B9556BA35A43D854EDC51F22399E51CD95520" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "DB2FB01B-CFDB-4BB4-99DC-F72F73E0FCD8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "D7432D4CE4D5866B9AD7A60910EA08E3FC1E7CB0" : "",
+    "F51B9556BA35A43D854EDC51F22399E51CD95520" : "Aldwych-2-JSON-Parser-for-Swift-\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Aldwych2",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 203,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Aldwych2.playground",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/sketchytech\/Aldwych-2-JSON-Parser-for-Swift-.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D7432D4CE4D5866B9AD7A60910EA08E3FC1E7CB0"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/sketchytech\/Aldwych-2-JSON-Parser-for-Swift-.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F51B9556BA35A43D854EDC51F22399E51CD95520"
+    }
+  ]
+}
