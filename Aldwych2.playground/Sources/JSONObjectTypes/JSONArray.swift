@@ -403,6 +403,15 @@ extension JSONArray {
             self = JSONArray.JArray(array)
         }
     }
+    public mutating func removeAtIndex(index:Int) {
+        switch self {
+        case .JArray(var array):
+            array.removeAtIndex(index)
+            self = JSONArray.JArray(array)
+        }
+    }
+
+    
 }
 
 

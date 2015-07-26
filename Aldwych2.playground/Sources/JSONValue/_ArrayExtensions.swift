@@ -371,7 +371,16 @@ extension JSONValue {
         return
         }
     }
-}
+    public mutating func removeAtIndex(index:Int) {
+        switch self {
+        case .JArray(var array):
+            array.removeAtIndex(index)
+            self = JSONValue.JArray(array)
+        default:
+            return
+        }
+    }
+  }
 
 
 

@@ -55,9 +55,40 @@ extension JSONDictionary {
     
 }
 
+extension JSONDictionary {
+    public mutating func updateValue(value:JSONValue, forKey key:String) {
+        switch self {
+        case .JDictionary(var dictionary):
+            dictionary.updateValue(value, forKey: key)
+            self = .JDictionary(dictionary)
+        }
+    }
+    public mutating func updateValue(value:AnyObject, forKey key:String) {
+        switch self {
+        case .JDictionary(var dictionary):
+            dictionary.updateValue(JSONValue(value: value), forKey: key)
+            self = .JDictionary(dictionary)
+        }
+    }
+    public mutating func updateValue(value:[String:AnyObject], forKey key:String) {
+        switch self {
+        case .JDictionary(var dictionary):
+            dictionary.updateValue(JSONValue(dictionary: value), forKey: key)
+            self = .JDictionary(dictionary)
+        }
+    }
+    public mutating func updateValue(value:[AnyObject], forKey key:String) {
+        switch self {
+        case .JDictionary(var dictionary):
+            dictionary.updateValue(JSONValue(array: value), forKey: key)
+            self = .JDictionary(dictionary)
+        }
+    }
+
+}
+
 
 extension JSONDictionary {
-    
     public subscript (key:String) -> JSONValue? {
         get {
             switch self {

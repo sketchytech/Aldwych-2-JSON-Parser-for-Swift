@@ -4,7 +4,7 @@
         <page name='JSONParsing'/>
         <page name='Retrieve Values'/>
         <page name='Editing Values'/>
-        <page name='Exporting JSON'/>
+        <page name='Adding and replacing'/>
         <page name='XMLParsing'/>
     </pages>
 </playground>

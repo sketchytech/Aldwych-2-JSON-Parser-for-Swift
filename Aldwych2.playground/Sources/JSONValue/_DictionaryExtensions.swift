@@ -202,3 +202,46 @@ extension JSONValue {
     }
 }
 
+extension JSONValue {
+    public mutating func updateValue(value:JSONValue, forKey key:String) {
+        switch self {
+        case .JDictionary(var dictionary):
+            dictionary[key] = value
+            self = .JDictionary(dictionary)
+        default:
+            return
+        }
+        
+    }
+    public mutating func updateValue(value:AnyObject, forKey key:String) {
+        switch self {
+        case .JDictionary(var dictionary):
+            dictionary[key] = JSONValue(value:value)
+            self = .JDictionary(dictionary)
+        default:
+            return
+        }
+    }
+    public mutating func updateValue(value:[String:AnyObject], forKey key:String) {
+        switch self {
+        case .JDictionary(var dictionary):
+            dictionary[key] = JSONValue(dictionary:value)
+            self = .JDictionary(dictionary)
+        default:
+            return
+        }
+    }
+    public mutating func updateValue(value:[AnyObject], forKey key:String) {
+        switch self {
+        case .JDictionary(var dictionary):
+            dictionary[key] = JSONValue(array: value)
+            self = .JDictionary(dictionary)
+        default:
+            return
+        }
+    }
+    
+}
+
+
+

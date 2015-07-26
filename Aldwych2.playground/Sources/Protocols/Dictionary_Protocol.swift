@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol JSONDictionaryProtocol {
+public protocol JSONDictionaryProtocol {
     var dictionary:Dictionary<String,AnyObject> { get }
     var nsDictionary:NSDictionary { get }
     /*
@@ -26,6 +26,11 @@ protocol JSONDictionaryProtocol {
     
     func jsonData(options:NSJSONWritingOptions, error:NSErrorPointer) -> NSData?
     func stringify(options:NSJSONWritingOptions, error:NSErrorPointer) -> String?
+    
+    func updateValue(value:JSONValue, forKey key:String)
+    func updateValue(value:AnyObject, forKey key:String)
+    func updateValue(value:[String:AnyObject], forKey key:String)
+    func updateValue(value:[AnyObject], forKey key:String)
 
 
 }

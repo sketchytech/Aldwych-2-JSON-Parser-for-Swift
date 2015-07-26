@@ -41,6 +41,7 @@ protocol JSONArrayProtocol {
     mutating func extend(arr:[JSONValue])
     
     mutating func removeLast()
+    mutating func removeAtIndex(index:Int)
     
     func jsonData(options:NSJSONWritingOptions, error:NSErrorPointer) -> NSData?
     func stringify(options:NSJSONWritingOptions, error:NSErrorPointer) -> String?
