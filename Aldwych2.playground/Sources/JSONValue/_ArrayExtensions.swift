@@ -57,64 +57,7 @@ extension JSONValue: JSONArrayProtocol {
 
 // subscripting Arrays
 extension JSONValue {
-    /*
-    public subscript (key:Int) -> JSONDictionary? {
-        get {
-            switch self {
-            case .JArray (let a):
-                if key >= a.endIndex {
-                    return nil
-                }
-                return a[key].jsonDictionary
-                
-            default:
-                return nil
-            }}
-        set(newValue) {
-            switch self {
-            case .JArray (var a):
-                if key >= a.endIndex {
-                    
-                }
-                else if let nV = newValue {
-                // FIXME: don't convert back to [String:AnyObject] with .dictionary, transfer more directly (use if case or switch)
-                    a[key] = JSONValue(dictionary: nV.dictionary)
-                    self = .JArray(a)
-                }
-            default:
-                return
-            }}
-    }
-
-    public subscript (key:Int) -> JSONArray? {
-        get {
-            switch self {
-            case .JArray (let a):
-                if key >= a.endIndex {
-                    return nil
-                }
-                return a[key].jsonArray
-                
-            default:
-                return nil
-            }}
-        set(newValue) {
-            switch self {
-            case .JArray (var a):
-                if key >= a.endIndex {
-                    
-                }
-                else if let nV = newValue {
-                    // FIXME: don't convert back to [String:AnyObject] with .dictionary, transfer more directly (use if case or switch)
-                    a[key] = JSONValue(array: nV.array)
-                    self = .JArray(a)
-                }
-            default:
-                return
-            }}
-    }
-*/
-    public subscript (key:Int) -> JSONValue? {
+      public subscript (key:Int) -> JSONValue? {
         get {
             switch self {
             case .JArray (let a):

@@ -29,12 +29,12 @@ But not only can we edit JSONValues we can also easily transform back into data 
     json.stringify() // stringify JSONValues
     
     // transform a subarray into data or stringify
-    json["results"]?.jsonArray?.jsonData()
-    json["results"]?.jsonArray?.stringify()
+    json["results"]?.jsonData()
+    json["results"]?.stringify()
     
     // extract data or stringify a nested dictionary
-    json["results"]?[0]?.jsonDictionary?.jsonData()
-    json["results"]?[0]?.jsonDictionary?.stringify()
+    json["results"]?[0]?.jsonData()
+    json["results"]?[0]?.stringify()
 }
 
 //: [Next](@next)
