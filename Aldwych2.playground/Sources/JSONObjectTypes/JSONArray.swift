@@ -33,19 +33,10 @@ extension JSONArray: JSONArrayProtocol {
     }
     
     
-    public subscript (key:Int) -> String? {
+    public subscript (key:Int) -> AnyObject? {
         get {
-            switch self {
-            case .JArray (let a):
-                if key >= a.endIndex {
-                    return nil
-                }
-                else if let s = a[key].str {
-                    return s
-                }
-                else {return nil}
-          
-            }}
+            return nil
+        }
         set(newValue) {
             switch self {
             case .JArray (var a):
@@ -53,92 +44,13 @@ extension JSONArray: JSONArrayProtocol {
                     
                 }
                 else if let nV = newValue {
-                    a[key] = .JString(nV)
+                    a[key] = JSONValue(value:nV)
                     self = .JArray(a)
                 }
-    
+
             }}
     }
     
-    public subscript (key:Int) -> NSNumber? {
-        get {
-            switch self {
-            case .JArray (let a):
-                if key >= a.endIndex {
-                    return nil
-                }
-                else if let n = a[key].num {
-                    return n
-                }
-                else {return nil}
-        
-            }}
-        set(newValue) {
-            switch self {
-            case .JArray (var a):
-                if key >= a.endIndex {
-                    
-                }
-                else if let nV = newValue {
-                    a[key] = .Number(nV)
-                    self = .JArray(a)
-                }
-      
-            }}
-    }
-    public subscript (key:Int) -> Bool? {
-        get {
-            switch self {
-            case .JArray (let a):
-                if key >= a.endIndex {
-                    return nil
-                }
-                else if let b = a[key].bool {
-                    return b
-                }
-                else {return nil}
-    
-            }}
-        set(newValue) {
-            switch self {
-            case .JArray (var a):
-                if key >= a.endIndex {
-                    
-                }
-                else if let nV = newValue {
-                    a[key] = .JBool(nV)
-                    self = .JArray(a)
-                }
-          
-            }}
-    }
-    
-    public subscript (key:Int) -> NSNull? {
-        get {
-            switch self {
-            case .JArray (let a):
-                if key >= a.endIndex {
-                    return nil
-                }
-                else if let b = a[key].null {
-                    return b
-                }
-                else {return nil}
-          
-            }}
-        set(newValue) {
-            switch self {
-            case .JArray (var a):
-                if key >= a.endIndex {
-                    
-                }
-                else if let _ = newValue {
-                    a[key] = .Null
-                    self = .JArray(a)
-                }
-          
-            }}
-    }
 }
 
 // Array Generator
@@ -259,50 +171,10 @@ extension JSONArray {
 // MARK: Append methods
 extension JSONArray {
     // Append method
-    public mutating func append(str:String) {
+    public mutating func append(value:AnyObject) {
         switch self {
         case .JArray(var array):
-            array.append(JSONValue(str))
-            self = JSONArray.JArray(array)
-        }
-    }
-    
-    public mutating func append(num:NSNumber) {
-        switch self {
-        case .JArray(var array):
-            array.append(JSONValue(num))
-            self = JSONArray.JArray(array)
-        }
-    }
-    public mutating func append(bool:Bool) {
-        switch self {
-        case .JArray(var array):
-            array.append(JSONValue(bool))
-            self = JSONArray.JArray(array)
-        }
-        
-    }
-    
-    public mutating func append(null:NSNull) {
-        switch self {
-        case .JArray(var array):
-            array.append(JSONValue(null))
-            self = JSONArray.JArray(array)
-        }
-    }
-    
-    public mutating func append(dict:[String:AnyObject]) {
-        switch self {
-        case .JArray(var array):
-            array.append(JSONValue(dictionary: dict))
-            self = JSONArray.JArray(array)
-        }
-    }
-    
-    public mutating func append(arr:[AnyObject]) {
-        switch self {
-        case .JArray(var array):
-            array.append(JSONValue(array:arr))
+            array.append(JSONValue(value:value))
             self = JSONArray.JArray(array)
         }
     }
@@ -319,52 +191,19 @@ extension JSONArray {
 
 // MARK: Insert methods
 extension JSONArray {
-    public mutating func insert(str:String, atIndex ind:Int) {
+    public mutating func insert(value:AnyObject, atIndex ind:Int) {
         switch self {
         case .JArray(var array):
-            array.insert(JSONValue(str), atIndex: ind)
-            self = JSONArray.JArray(array)
-   
-        }
-    }
-    public mutating func insert(num:NSNumber, atIndex ind:Int) {
-        switch self {
-        case .JArray(var array):
-            array.insert(JSONValue(num), atIndex: ind)
+            array.insert(JSONValue(value:value), atIndex: ind)
             self = JSONArray.JArray(array)
    
         }
     }
     
-    public mutating func insert(bool:Bool, atIndex ind:Int) {
+    public mutating func insert(value:JSONValue, atIndex ind:Int) {
         switch self {
         case .JArray(var array):
-            array.insert(JSONValue(bool), atIndex: ind)
-            self = JSONArray.JArray(array)
-     
-        }
-    }
-    
-    public mutating func insert(null:NSNull, atIndex ind:Int) {
-        switch self {
-        case .JArray(var array):
-            array.insert(JSONValue(null), atIndex: ind)
-            self = JSONArray.JArray(array)
-       
-        }}
-    
-    public mutating func insert(dict:[String: AnyObject], atIndex ind:Int) {
-        switch self {
-        case .JArray(var array):
-            array.insert(JSONValue(dictionary: dict), atIndex: ind)
-            self = JSONArray.JArray(array)
-       
-        }}
-    
-    public mutating func insert(arr:[AnyObject], atIndex ind:Int) {
-        switch self {
-        case .JArray(var array):
-            array.insert(JSONValue(array: arr), atIndex: ind)
+            array.insert(value, atIndex: ind)
             self = JSONArray.JArray(array)
     
         }

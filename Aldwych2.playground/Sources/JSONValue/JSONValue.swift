@@ -14,10 +14,6 @@ public enum JSONValue {
     
 }
 
-extension JSONValue {
-    
-
-}
 
 // MARK: Extract inner value
 extension JSONValue {

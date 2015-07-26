@@ -70,21 +70,7 @@ extension JSONDictionary {
             self = .JDictionary(dictionary)
         }
     }
-    public mutating func updateValue(value:[String:AnyObject], forKey key:String) {
-        switch self {
-        case .JDictionary(var dictionary):
-            dictionary.updateValue(JSONValue(dictionary: value), forKey: key)
-            self = .JDictionary(dictionary)
-        }
-    }
-    public mutating func updateValue(value:[AnyObject], forKey key:String) {
-        switch self {
-        case .JDictionary(var dictionary):
-            dictionary.updateValue(JSONValue(array: value), forKey: key)
-            self = .JDictionary(dictionary)
-        }
-    }
-
+   
 }
 
 
@@ -107,86 +93,19 @@ extension JSONDictionary {
             }}
     }
     
-    public subscript (key:String) -> String? {
+    public subscript (key:String) -> AnyObject? {
         get {
-            switch self {
-            case .JDictionary(let a):
-                if let s = a[key]?.str {
-                    return s
-                }
-                else {return nil}
-       
-            }}
+            return nil
+        }
         set(newValue) {
             
             switch self {
             case .JDictionary(var a):
                 if let nV = newValue {
-                    a[key] = .JString(nV)
+                    a[key] = JSONValue(value:nV)
                     self = .JDictionary(a)
                 }
-            }}
-    }
-    
-    public subscript (key:String) -> NSNumber? {
-        get {
-            switch self {
-            case .JDictionary(let a):
-                if let n = a[key]?.num {
-                    return n
-                }
-                else {return nil}
-                
-            }}
-        set(newValue) {
-            
-            switch self {
-            case .JDictionary(var a):
-                if let nV = newValue {
-                    a[key] = .Number(nV)
-                    self = .JDictionary(a)
-                }
-    }}
-    }
-    public subscript (key:String) -> Bool? {
-        get {
-            switch self {
-            case .JDictionary(let a):
-                if let b = a[key]?.bool {
-                    return b
-                }
-                else {return nil}
-                
-            }}
-        set(newValue) {
-            
-            switch self {
-            case .JDictionary(var a):
-                if let nV = newValue {
-                    a[key] = .JBool(nV)
-                    self = .JDictionary(a)
-                }
-            }}
-    }
-    public subscript (key:String) -> NSNull? {
-        get {
-            switch self {
-            case .JDictionary(let a):
-                if let n = a[key]?.null {
-                    return n
-                }
-                else {return nil}
-                
-      
-            }}
-        set(newValue) {
-            
-            switch self {
-            case .JDictionary(var a):
-                if let _ = newValue {
-                    a[key] = .Null
-                    self = .JDictionary(a)
-                }
+         
             }}
     }
     

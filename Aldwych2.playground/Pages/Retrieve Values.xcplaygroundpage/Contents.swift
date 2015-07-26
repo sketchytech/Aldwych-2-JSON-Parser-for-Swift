@@ -44,9 +44,6 @@ if let json = jsonValue
         artistName
     }
     
-    if let artistName:String = json["results"]?[0]?["artistName"] {
-        artistName
-    }
 }
 /*:
 For arrays we can follow a similarly familiar pattern when using the JSONArray type.
