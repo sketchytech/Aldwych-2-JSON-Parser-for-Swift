@@ -21,7 +21,10 @@ if var json = jsonValue
     json["results"]?[0]?["artistName"]?.str // "Music Man"
     json["results"]?.removeLast()
     json["resultCount"] = json["results"]?.count
-//: But not only can we edit JSONValues we can also easily transform back into data or stringify all the data or a subset of it
+/*:
+## Extracting and subsetting JSON data
+But not only can we edit JSONValues we can also easily transform back into data or stringify all the data or a subset of it
+*/
     json.jsonData() // transform back into JSON data
     json.stringify() // stringify JSONValues
     
