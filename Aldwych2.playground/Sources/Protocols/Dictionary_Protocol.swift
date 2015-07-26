@@ -11,7 +11,10 @@ import Foundation
 protocol JSONDictionaryProtocol {
     var dictionary:Dictionary<String,AnyObject> { get }
     var nsDictionary:NSDictionary { get }
-    
+    /*
+    subscript (key:String) -> JSONDictionary? { get set }
+    subscript (key:String) -> JSONArray? { get set }
+*/
     subscript (key:String) -> JSONValue? { get set }
     subscript (key:String) -> String? { get set }
     subscript (key:String) -> NSNumber? { get set }

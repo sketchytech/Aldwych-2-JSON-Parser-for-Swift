@@ -12,7 +12,10 @@ protocol JSONArrayProtocol {
     var array:[AnyObject] { get }
     var nsArray:NSArray { get }
     var count:Int { get }
-    
+  /*
+    subscript (key:Int) -> JSONDictionary? { get set }
+    subscript (key:Int) -> JSONArray? { get set }
+*/
     subscript (key:Int) -> JSONValue? { get set }
     subscript (key:Int) -> String? { get set }
     subscript (key:Int) -> NSNumber? { get set }
@@ -39,11 +42,7 @@ protocol JSONArrayProtocol {
     
     mutating func removeLast()
     
-    var jsonArr:[JSONValue]? { get }
-    var jsonArrOpt:[JSONValue]?? { get }
-    
     func jsonData(options:NSJSONWritingOptions, error:NSErrorPointer) -> NSData?
     func stringify(options:NSJSONWritingOptions, error:NSErrorPointer) -> String?
 
-    
 }

@@ -13,34 +13,25 @@ public protocol JSONValueType {
     var boolOpt:Bool?? { get }
     var null:NSNull? { get }
     
-    var jsonArr:[JSONValue]? { get }
-    var jsonArrOpt:[JSONValue]?? { get }
-    var jsonDict:[String:JSONValue]? { get }
-    var jsonDictOpt:[String:JSONValue]?? { get }
+    var jsonArray:JSONArray? { get }
+    var jsonArrayOpt:JSONArray?? { get }
+    var jsonDictionary:JSONDictionary? { get }
+    var jsonDictionaryOpt:JSONDictionary?? { get }
     
     // subscripting Arrays
     
     subscript (key:Int) -> JSONValue? {get set}
-        
     subscript (key:Int) -> String? {get set}
-        
     subscript (key:Int) -> NSNumber? {get set}
-    
     subscript (key:Int) -> Bool? {get set}
-        
     subscript (key:Int) -> NSNull? { get set }
-    
-    subscript (key:String) -> JSONValue? {get set}
-    
-    subscript (key:String) -> String? {get set}
-    
-    subscript (key:String) -> NSNumber? {get set}
-    
-    subscript (key:String) -> Bool? {get set}
-    
-    subscript (key:String) -> NSNull? { get set }
-    
 
+    // subscripting Dictionaries
+    subscript (key:String) -> JSONValue? {get set}
+    subscript (key:String) -> String? {get set}
+    subscript (key:String) -> NSNumber? {get set}
+    subscript (key:String) -> Bool? {get set}
+    subscript (key:String) -> NSNull? { get set }
 }
 public protocol JSONParserType {
 

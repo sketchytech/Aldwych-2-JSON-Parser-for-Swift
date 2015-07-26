@@ -18,7 +18,7 @@ catch let e  {
 //: Once we have our json it is possible to uncover the types within it through for-in loops and directly through subscripts.
 
 
-if let json = jsonValue where json.jsonDict != nil
+if let json = jsonValue
 {
     for (k,v) in json {
         
@@ -31,15 +31,22 @@ if let json = jsonValue where json.jsonDict != nil
         if let n = v.null {
             print(n)
         }
-        if let a = v.jsonArr {
+        if let a = v.jsonArray {
             print("Key: \(k). Array: \(a)")
         }
-        if let d = v.jsonDict {
+        if let d = v.jsonDictionary {
             print(d)
         }
     }
     
-    json["results"]?[0]?["artistName"]?.str
+    // Returns a value of known type
+    if let artistName = json["results"]?[0]?["artistName"]?.str {
+        artistName
+    }
+    
+    if let artistName:String = json["results"]?[0]?["artistName"] {
+        artistName
+    }
 }
 /*:
 For arrays we can follow a similarly familiar pattern when using the JSONArray type.

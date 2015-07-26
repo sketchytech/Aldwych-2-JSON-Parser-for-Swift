@@ -10,8 +10,8 @@ import Foundation
 public class XMLParser:NSObject, NSXMLParserDelegate {
     
     // where the dictionaries for each tag are stored
-    var elementArray = JSONValue.JArray([JSONValue]())
-    var contentArray = JSONValue.JArray([JSONValue]())
+    var elementArray = [JSONValue]()
+    var contentArray = [JSONValue]()
     // final document array where last dictionary
     var document = JSONValue.JDictionary([String:JSONValue]())
     
@@ -42,7 +42,7 @@ public func parser(parser: NSXMLParser, didStartElement elementName: String, nam
     
 public func parser(parser: NSXMLParser, foundCharacters string: String) {
             // current array is always the last item in holding, add string to array
-            contentArray[contentArray.count-1]?.append(string)
+            contentArray[contentArray.count-1].append(JSONValue(string))
             }
     
 public func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
@@ -51,7 +51,7 @@ public func parser(parser: NSXMLParser, didEndElement elementName: String, names
         if contentArray.count > 0 {
             for (k,_) in elementArray.last! {
                 if k != "attributes" {
-                    elementArray[elementArray.count-1]?[k] = contentArray.last
+                    elementArray[elementArray.count-1][k] = contentArray.last
                 }
             }
             
@@ -62,7 +62,7 @@ public func parser(parser: NSXMLParser, didEndElement elementName: String, names
             
             // FIXME: pointless extraction of dictionary to re-encode
             // add the dictionary into the previous JSONArray of the holdingArray
-            contentArray[contentArray.count-2]?.append(JSONValue((elementArray[elementArray.count-1]?.jsonDict)!))
+            contentArray[contentArray.count-2].append(JSONValue(dictionary: elementArray[elementArray.count-1].dictionary))
             
             
             // remove the dictionary
@@ -135,7 +135,7 @@ public func parserDidEndDocument(parser: NSXMLParser) {
             }
                 
                 // if it's a dictionary we know it has a tag key
-            else if let _ = b.jsonDict
+            else if let _ = b.jsonDictionary
             {
 
                 bodyHTML += extractFromDictionaryXml2json(b)
@@ -143,7 +143,7 @@ public func parserDidEndDocument(parser: NSXMLParser) {
             }
                 
                 // it shouldn't be an array, and this can most likely be removed
-            else if let _ = b.jsonArr
+            else if let _ = b.jsonArray
             {
                 bodyHTML += json2xmlUnchecked2(b)
                 
@@ -159,7 +159,7 @@ public func parserDidEndDocument(parser: NSXMLParser) {
             if k != "attributes" {
                 elementHTML += "<"
                 elementHTML += k
-                if let atts = dict["attributes"]?.jsonDict {
+                if let atts = dict["attributes"]?.jsonDictionary {
                     for (k,v) in atts {
                         elementHTML += " "
                         elementHTML += k
@@ -177,7 +177,7 @@ public func parserDidEndDocument(parser: NSXMLParser) {
                     elementHTML += xmlEntities(text)
                     
                 }
-                if let _ = v.jsonArr {
+                if let _ = v.jsonArray {
                     elementHTML += json2xmlUnchecked2(v)
                     
                 }
@@ -187,7 +187,7 @@ public func parserDidEndDocument(parser: NSXMLParser) {
                 elementHTML += ">"
             }
                 
-            else if let _ = dict[k]?.jsonArr {
+            else if let _ = dict[k]?.jsonArray {
                 // cycle back through
                 elementHTML += json2xmlUnchecked2(dict[k]!)
             }

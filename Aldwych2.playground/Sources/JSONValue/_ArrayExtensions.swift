@@ -10,10 +10,10 @@ extension JSONValue: JSONArrayProtocol {
                 if let a: AnyObject = v.1.str ?? v.1.num ?? v.1.bool ?? v.1.null {
                     array[v.0] = a
                 }
-                else if v.1.jsonDict != nil {
+                else if v.1.jsonDictionary != nil {
                     array[v.0] = v.1.dictionary as AnyObject
                 }
-                else if v.1.jsonArr != nil {
+                else if v.1.jsonArray != nil {
                     array[v.0] = v.1.array as AnyObject
                 }
             }
@@ -41,10 +41,10 @@ extension JSONValue: JSONArrayProtocol {
                 if let n: NSNull = v.null {
                     array.addObject(n)
                 }
-                else if v.jsonDict != nil {
+                else if v.jsonDictionary != nil {
                     array.addObject(v.nsDictionary)
                 }
-                else if v.jsonArr != nil {
+                else if v.jsonArray != nil {
                     array.addObject(v.nsArray)
                 }
             }
@@ -57,7 +57,63 @@ extension JSONValue: JSONArrayProtocol {
 
 // subscripting Arrays
 extension JSONValue {
-    
+    /*
+    public subscript (key:Int) -> JSONDictionary? {
+        get {
+            switch self {
+            case .JArray (let a):
+                if key >= a.endIndex {
+                    return nil
+                }
+                return a[key].jsonDictionary
+                
+            default:
+                return nil
+            }}
+        set(newValue) {
+            switch self {
+            case .JArray (var a):
+                if key >= a.endIndex {
+                    
+                }
+                else if let nV = newValue {
+                // FIXME: don't convert back to [String:AnyObject] with .dictionary, transfer more directly (use if case or switch)
+                    a[key] = JSONValue(dictionary: nV.dictionary)
+                    self = .JArray(a)
+                }
+            default:
+                return
+            }}
+    }
+
+    public subscript (key:Int) -> JSONArray? {
+        get {
+            switch self {
+            case .JArray (let a):
+                if key >= a.endIndex {
+                    return nil
+                }
+                return a[key].jsonArray
+                
+            default:
+                return nil
+            }}
+        set(newValue) {
+            switch self {
+            case .JArray (var a):
+                if key >= a.endIndex {
+                    
+                }
+                else if let nV = newValue {
+                    // FIXME: don't convert back to [String:AnyObject] with .dictionary, transfer more directly (use if case or switch)
+                    a[key] = JSONValue(array: nV.array)
+                    self = .JArray(a)
+                }
+            default:
+                return
+            }}
+    }
+*/
     public subscript (key:Int) -> JSONValue? {
         get {
             switch self {

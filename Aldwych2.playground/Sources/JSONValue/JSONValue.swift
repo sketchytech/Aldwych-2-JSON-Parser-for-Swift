@@ -97,43 +97,43 @@ extension JSONValue {
         
     }
     
-    public  var jsonArr:[JSONValue]? {
+    public  var jsonArray:JSONArray? {
         switch self {
         case .JArray(let jsonArr):
-            return jsonArr
+            return JSONArray.JArray(jsonArr)
         default:
             return nil
         }
         
     }
-    public var jsonArrOpt:[JSONValue]?? {
+    public var jsonArrayOpt:JSONArray?? {
         switch self {
         case .JArray(let jsonArr):
-            return jsonArr
+            return JSONArray.JArray(jsonArr)
         case .Null:
-            let a:[JSONValue]? = nil
+            let a:JSONArray? = nil
             return a
         default:
             return nil
         }
         
     }
-    public var jsonDict:[String:JSONValue]? {
+    public var jsonDictionary:JSONDictionary? {
         switch self {
         case .JDictionary(let jsonDict):
-            return jsonDict
+            return JSONDictionary.JDictionary(jsonDict)
         default:
             return nil
         }
         
     }
     
-    public var jsonDictOpt:[String:JSONValue]?? {
+    public var jsonDictionaryOpt:JSONDictionary?? {
         switch self {
         case .JDictionary(let jsonDict):
-            return jsonDict
+            return JSONDictionary.JDictionary(jsonDict)
         case .Null:
-            let a:[String:JSONValue]? = nil
+            let a:JSONDictionary? = nil
             return a
         default:
             return nil

@@ -22,10 +22,10 @@ extension JSONDictionary {
                 if let a: AnyObject = v.str ?? v.num ?? v.bool ?? v.null {
                     dictionary[k] = a
                 }
-                else if v.jsonArr != nil {
+                else if v.jsonArray != nil {
                     dictionary[k] = v.array as AnyObject
                 }
-                else if v.jsonDict != nil {
+                else if v.jsonDictionary != nil {
                     dictionary[k] = v.dictionary as AnyObject
                 }
             }
@@ -42,10 +42,10 @@ extension JSONDictionary {
                 if let a: AnyObject = v.str ?? v.num ?? v.bool ?? v.null {
                     dictionary[k] = a
                 }
-                else if v.jsonArr != nil {
+                else if v.jsonArray != nil {
                     dictionary[k] = v.array as NSArray
                 }
-                else if v.jsonDict != nil {
+                else if v.jsonDictionary != nil {
                     dictionary[k] = v.dictionary as NSDictionary
                 }
             }
@@ -57,6 +57,47 @@ extension JSONDictionary {
 
 
 extension JSONDictionary {
+    /*
+    public subscript (key:String) -> JSONDictionary? {
+        get {
+            switch self {
+            case .JDictionary(let a):
+                a[key]?.jsonDictionary
+            }
+            return nil
+        }
+        set(newValue) {
+            
+            switch self {
+            case .JDictionary(var a):
+                if let nV = newValue {
+                    // FIXME: don't convert back to [String:AnyObject] with .dictionary, transfer more directly (use if case or switch)
+                    a[key] = JSONValue(dictionary:nV.dictionary)
+                    self = .JDictionary(a)
+                }
+            }}
+    }
+    
+    public subscript (key:String) -> JSONArray? {
+        get {
+            switch self {
+            case .JDictionary(let a):
+                a[key]?.jsonArray
+            }
+            return nil
+        }
+        set(newValue) {
+            
+            switch self {
+            case .JDictionary(var a):
+                if let nV = newValue {
+                    // FIXME: don't convert back to [String:AnyObject] with .dictionary, transfer more directly (use if case or switch)
+                    a[key] = JSONValue(array:nV.array)
+                    self = .JDictionary(a)
+                }
+            }}
+    }
+*/
     
     public subscript (key:String) -> JSONValue? {
         get {
