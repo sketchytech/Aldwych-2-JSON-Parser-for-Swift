@@ -132,7 +132,7 @@ extension JSONValue {
     public mutating func updateValue(value:AnyObject, forKey key:String, typesafe:Bool = true) throws {
         switch self {
         case .JDictionary(var dictionary):
-            if typesafe == false || dictionary[key]?.null != nil {
+            if typesafe == false || dictionary[key]?.null != nil || dictionary[key] == nil {
                 dictionary[key] = JSONValue(value:value)
                 self = .JDictionary(dictionary)
             }
