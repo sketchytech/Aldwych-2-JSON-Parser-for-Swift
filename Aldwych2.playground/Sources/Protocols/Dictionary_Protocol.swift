@@ -18,14 +18,11 @@ public protocol JSONDictionaryProtocol {
     subscript (key:String) -> JSONValue? { get set }
     subscript (key:String) -> AnyObject? { get set }
     
-    var jsonDict:[String:JSONValue]? { get }
-    var jsonDictOpt:[String:JSONValue]?? { get }
-    
     func jsonData(options:NSJSONWritingOptions, error:NSErrorPointer) -> NSData?
     func stringify(options:NSJSONWritingOptions, error:NSErrorPointer) -> String?
     
     func updateValue(value:JSONValue, forKey key:String)
-    func updateValue(value:AnyObject, forKey key:String)
-    
+    func updateValue(value:AnyObject, forKey key:String, typesafe:Bool)
+    mutating func nullValueForKey(key:String)
 
 }

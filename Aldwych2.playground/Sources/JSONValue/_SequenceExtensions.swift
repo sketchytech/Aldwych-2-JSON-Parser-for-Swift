@@ -3,7 +3,8 @@ protocol JSONGeneratorProtocol:GeneratorType {
     
 }
 // MARK: Sequence type
-// Array Generator
+// FIXME: Necessary to repeat generator for JSONValue.JDictionary and JSONDictionary?
+// Generator
 public struct JSONGenerator:JSONGeneratorProtocol {
     // use dictionary with index as keys for position in array
     let value:JSONValue

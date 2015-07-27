@@ -129,18 +129,45 @@ extension JSONValue {
         }
         
     }
-    public mutating func updateValue(value:AnyObject, forKey key:String) {
+    public mutating func updateValue(value:AnyObject, forKey key:String, typesafe:Bool = true) {
         switch self {
         case .JDictionary(var dictionary):
-            dictionary[key] = JSONValue(value:value)
-            self = .JDictionary(dictionary)
+            if typesafe == false || dictionary[key]?.null != nil {
+                dictionary[key] = JSONValue(value:value)
+                self = .JDictionary(dictionary)
+            }
+            else if dictionary[key]?.str != nil && value as? String != nil {
+                dictionary[key] = JSONValue(value:value)
+                self = .JDictionary(dictionary)
+            }
+            else if dictionary[key]?.bool != nil && value as? NSNumber != nil  {
+                if ((value as? NSNumber)?.isBoolNumber() == true) {
+                    dictionary[key] = JSONValue(value:value)
+                    self = .JDictionary(dictionary)
+                }
+            }
+            else if dictionary[key]?.num != nil && value as? NSNumber != nil {
+                if ((value as? NSNumber)?.isBoolNumber() == false) {
+                    dictionary[key] = JSONValue(value:value)
+                    self = .JDictionary(dictionary) }
+            }
+            else if dictionary[key]?.jsonArray != nil && value as? [AnyObject] != nil {
+                dictionary[key] = JSONValue(value:value)
+                self = .JDictionary(dictionary)
+            }
+            else if dictionary[key]?.jsonDictionary != nil && value as? [String:AnyObject] != nil {
+                dictionary[key] = JSONValue(value:value)
+                self = .JDictionary(dictionary)
+            }
+    
         default:
             return
         }
-    }
 
     
 }
-
-
+    public mutating func nullValueForKey(key:String) {
+        updateValue(NSNull(), forKey: key, typesafe: false)
+    }
+}
 

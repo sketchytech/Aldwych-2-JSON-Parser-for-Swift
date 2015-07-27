@@ -63,14 +63,43 @@ extension JSONDictionary {
             self = .JDictionary(dictionary)
         }
     }
-    public mutating func updateValue(value:AnyObject, forKey key:String) {
+    
+    public mutating func updateValue(value:AnyObject, forKey key:String, typesafe:Bool = true) {
         switch self {
         case .JDictionary(var dictionary):
-            dictionary.updateValue(JSONValue(value: value), forKey: key)
-            self = .JDictionary(dictionary)
+            if typesafe == false || dictionary[key]?.null != nil {
+                dictionary[key] = JSONValue(value:value)
+                self = .JDictionary(dictionary)
+            }
+            else if dictionary[key]?.str != nil && value as? String != nil {
+                dictionary[key] = JSONValue(value:value)
+                self = .JDictionary(dictionary)
+            }
+            else if dictionary[key]?.bool != nil && value as? NSNumber != nil  {
+                if ((value as? NSNumber)?.isBoolNumber() == true) {
+                    dictionary[key] = JSONValue(value:value)
+                    self = .JDictionary(dictionary)
+                }
+            }
+            else if dictionary[key]?.num != nil && value as? NSNumber != nil {
+                if ((value as? NSNumber)?.isBoolNumber() == false) {
+                    dictionary[key] = JSONValue(value:value)
+                    self = .JDictionary(dictionary) }
+            }
+            else if dictionary[key]?.jsonArray != nil && value as? [AnyObject] != nil {
+                dictionary[key] = JSONValue(value:value)
+                self = .JDictionary(dictionary)
+            }
+            else if dictionary[key]?.jsonDictionary != nil && value as? [String:AnyObject] != nil {
+                dictionary[key] = JSONValue(value:value)
+                self = .JDictionary(dictionary)
+            }
         }
     }
-   
+    
+    public mutating func nullValueForKey(key:String) {
+        updateValue(NSNull(), forKey: key, typesafe: false)
+    }
 }
 
 
@@ -110,21 +139,7 @@ extension JSONDictionary {
     }
     
 }
-// MARK: Extract inner value
-extension JSONDictionary {
-     public var jsonDict:[String:JSONValue]? {
-        switch self {
-        case .JDictionary(let jsonDict):
-            return jsonDict
-        }
-    }
-    public var jsonDictOpt:[String:JSONValue]?? {
-        switch self {
-        case .JDictionary(let jsonDict):
-            return jsonDict
-        }
-    }
-}
+
 
 extension JSONDictionary: SequenceType  {
     
@@ -135,6 +150,8 @@ extension JSONDictionary: SequenceType  {
         return gen
     }
 }
+
+// FIXME: Necessary to repeat generator for JSONValue.JDictionary and JSONDictionary?
 // Dictionary Generator
 public struct JSONDictionaryGenerator:GeneratorType {
     // use dictionary with index as keys for position in array
