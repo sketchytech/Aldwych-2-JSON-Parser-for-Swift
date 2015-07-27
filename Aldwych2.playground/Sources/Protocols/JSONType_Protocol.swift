@@ -33,6 +33,8 @@ public protocol JSONValueType {
     subscript (key:String) -> Bool? {get set}
     subscript (key:String) -> NSNull? { get set }
 }
+
+
 public protocol JSONParserType {
 
     static func parse(urlPath urlPath:String) throws -> JSONObjectType

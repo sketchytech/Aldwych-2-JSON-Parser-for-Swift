@@ -191,5 +191,59 @@ extension JSONValue:CustomStringConvertible {
 
 }
 
+public extension JSONValue {
+    public func isJSONBool () -> Bool {
+        return self.bool != nil
+    }
+    public func isJSONNull () -> Bool {
+        return self.null != nil
+    }
+    public func isJSONNumber () -> Bool {
+        return self.num != nil
+    }
+    public func isJSONString () -> Bool {
+        return self.str != nil
+    }
+    
+    public func isJSONDictionary () -> Bool {
+        return self.jsonDictionary != nil
+    }
+    public func isJSONArray () -> Bool {
+        return self.jsonDictionary != nil
+    }
+    public func canReplaceWithBool() -> Bool {
+        if self.isJSONBool() || self.isJSONNull() {
+            return true
+        }
+        return false
+    }
+    public func canReplaceWithNumber() -> Bool {
+        if self.isJSONNumber() || self.isJSONNull() {
+            return true
+        }
+        return false
+    }
+    public func canReplaceWithString() -> Bool {
+        if self.isJSONString() || self.isJSONNull() {
+            return true
+        }
+        return false
+    }
+    public func canReplaceWithArray() -> Bool {
+        if self.isJSONArray() || self.isJSONNull() {
+            return true
+        }
+        return false
+    }
+
+    public func canReplaceWithDictionary() -> Bool {
+        if self.isJSONDictionary() || self.isJSONNull() {
+            return true
+        }
+        return false
+    }
+
+    
+}
 
 

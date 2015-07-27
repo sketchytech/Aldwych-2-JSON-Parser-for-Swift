@@ -63,8 +63,10 @@ extension JSONDictionary {
             self = .JDictionary(dictionary)
         }
     }
-    
-    public mutating func updateValue(value:AnyObject, forKey key:String, typesafe:Bool = true) {
+    enum JSONTypeError:ErrorType {
+        case TypeError(String)
+    }
+    public mutating func updateValue(value:AnyObject, forKey key:String, typesafe:Bool = true) throws {
         switch self {
         case .JDictionary(var dictionary):
             if typesafe == false || dictionary[key]?.null != nil {
@@ -80,11 +82,18 @@ extension JSONDictionary {
                     dictionary[key] = JSONValue(value:value)
                     self = .JDictionary(dictionary)
                 }
+                else {
+                    throw JSONError.TypeError("Attempt to replace bool with number in typesafe mode")
+                }
             }
             else if dictionary[key]?.num != nil && value as? NSNumber != nil {
                 if ((value as? NSNumber)?.isBoolNumber() == false) {
                     dictionary[key] = JSONValue(value:value)
-                    self = .JDictionary(dictionary) }
+                    self = .JDictionary(dictionary)
+                }
+                else {
+                    throw JSONError.TypeError("Attempt to replace number with bool in typesafe mode")
+                }
             }
             else if dictionary[key]?.jsonArray != nil && value as? [AnyObject] != nil {
                 dictionary[key] = JSONValue(value:value)
@@ -94,11 +103,15 @@ extension JSONDictionary {
                 dictionary[key] = JSONValue(value:value)
                 self = .JDictionary(dictionary)
             }
+            else {
+                throw JSONError.TypeError("Type is not JSON compatible")
+            }
         }
     }
     
     public mutating func nullValueForKey(key:String) {
-        updateValue(NSNull(), forKey: key, typesafe: false)
+        // this should never ever fail
+        try! updateValue(NSNull(), forKey: key, typesafe: false)
     }
 }
 

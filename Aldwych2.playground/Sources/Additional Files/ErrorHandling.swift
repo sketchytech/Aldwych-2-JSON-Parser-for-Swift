@@ -11,8 +11,11 @@ public func errorString(error err:ErrorType) -> String {
             return error
         case .URLError(let error):
             return error
+        case .TypeError(let error):
+            return error
         }
     }
+    
     else {
         return (err as NSError).description
     }

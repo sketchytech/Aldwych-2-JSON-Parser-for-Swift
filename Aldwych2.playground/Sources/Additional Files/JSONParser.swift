@@ -8,7 +8,7 @@
 import Foundation
 
 public enum JSONError:ErrorType {
-    case JSONValueError(String), DataError(String), FileError(String), URLError(String)
+    case JSONValueError(String), DataError(String), FileError(String), URLError(String), TypeError(String)
 }
 // receive data
 public struct JSONParser:JSONParserType {
