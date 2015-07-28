@@ -24,7 +24,7 @@ a["One"]?.null == NSNull() // true
 if a["One"]?.bool != nil || a["One"]?.null != nil {
     a.updateValue(true, forKey: "One") // ["One": true, "Two": "Hello"]
 }
-//: and to save repetition there are some convience methods you can use here:
+//: and to save repetition there are some convenience methods you can use here:
 
 if a["One"]?.canReplaceWithBool() == true {
     a.updateValue(false, forKey: "One") // ["One": false, "Two": "Hello"]
