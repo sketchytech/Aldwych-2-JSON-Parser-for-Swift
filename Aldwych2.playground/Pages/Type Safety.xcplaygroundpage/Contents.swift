@@ -14,7 +14,7 @@ a.updateValue(12, forKey: "Two", typesafe: true) // ["One": false, "Two": 12]
 a.updateValue(14, forKey: "Two") // true is always the default for typesafe
 
 //: The consequences of passing a value of a different type when typesafe is declared as true is a fatalError crash.
-// a.updateValue(false, forKey: "Two", typesafe: true) // this code generates a fatal error, uncomment and expand debug area below to see
+// a.updateValue(false, forKey: "Two") // this code generates a fatal error, uncomment and expand debug area below to see
 //: Where type safety is not a consideration always set typesafe to false.
 a.updateValue("Hello", forKey: "Two", typesafe: false) // ["One": false, "Two": "Hello"]
 //: Currently if a value is null it is assumed that it can be changed to any new value. To convert an existing value to null can be done through turning type safety off but can also be performed in an easier way using a unique method: nullValueForKey()
@@ -22,13 +22,12 @@ a.nullValueForKey("One")
 a["One"]?.null == NSNull() // true
 //: If you are uncertain of the type of value you wish to change, always test first
 if a["One"]?.bool != nil || a["One"]?.null != nil {
-    a.updateValue(true, forKey: "One") // default for typesafe is true
-    a // ["One": true, "Two": 1]
+    a.updateValue(true, forKey: "One") // ["One": true, "Two": "Hello"]
 }
 //: and to save repetition there are some convience methods you can use here:
 
 if a["One"]?.canReplaceWithBool() == true {
-    a.updateValue(false, forKey: "One") // ["One": false, "Two": 1]
+    a.updateValue(false, forKey: "One") // ["One": false, "Two": "Hello"]
 }
 
 a["One"]?.canReplaceWithString() // false, so we'd never try and make a type safe substitution of the value with a String
