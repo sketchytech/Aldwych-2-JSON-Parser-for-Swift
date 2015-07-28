@@ -22,7 +22,7 @@ public protocol JSONDictionaryProtocol {
     func stringify(options:NSJSONWritingOptions, error:NSErrorPointer) -> String?
     
     func updateValue(value:JSONValue, forKey key:String)
-    func updateValue(value:AnyObject, forKey key:String, typesafe:Bool) throws
+    func updateValue(value:AnyObject, forKey key:String, typesafe:Bool)
     mutating func nullValueForKey(key:String)
 
 }

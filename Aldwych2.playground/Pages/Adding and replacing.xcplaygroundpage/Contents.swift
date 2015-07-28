@@ -20,13 +20,8 @@ For adding and replacing dictionaries and arrays currently use the methods updat
 if var json = jsonValue
 {
     // adding a dictionary to a dictionary
-    do {
-        try json.updateValue(["results":10] as [String:AnyObject], forKey:"moreResults")
-        json
-    }
-    catch let e {
-        errorString(error: e)
-    }
+    json.updateValue(["results":10], forKey:"moreResults")
+  
     // removing an object from an array
     json["results"]?.removeAtIndex(0)
     // adding an array to an array

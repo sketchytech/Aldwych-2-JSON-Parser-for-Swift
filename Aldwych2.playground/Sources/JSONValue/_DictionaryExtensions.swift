@@ -129,7 +129,7 @@ extension JSONValue {
         }
         
     }
-    public mutating func updateValue(value:AnyObject, forKey key:String, typesafe:Bool = true) throws {
+    public mutating func updateValue(value:AnyObject, forKey key:String, typesafe:Bool = true) {
         switch self {
         case .JDictionary(var dictionary):
             if typesafe == false || dictionary[key]?.null != nil || dictionary[key] == nil {
@@ -146,7 +146,7 @@ extension JSONValue {
                     self = .JDictionary(dictionary)
                 }
                 else {
-                    throw JSONError.TypeError("Attempt to replace bool with number in typesafe mode")
+                    fatalError("Attempt to replace bool with number in typesafe mode")
                 }
             }
             else if dictionary[key]?.num != nil && value as? NSNumber != nil {
@@ -155,7 +155,7 @@ extension JSONValue {
                     self = .JDictionary(dictionary)
                 }
                 else {
-                    throw JSONError.TypeError("Attempt to replace number with bool in typesafe mode")
+                    fatalError("Attempt to replace number with bool in typesafe mode")
                 }
             }
             else if dictionary[key]?.jsonArray != nil && value as? [AnyObject] != nil {
@@ -167,18 +167,18 @@ extension JSONValue {
                 self = .JDictionary(dictionary)
             }
             else {
-                throw JSONError.TypeError("Type is not JSON compatible")
+                fatalError("Type is not JSON compatible")
             }
 
     
         default:
-                 throw JSONError.TypeError("Trying to update value for key in non-dictionary type")
+                 fatalError("Trying to update value for key in non-dictionary type")
         }
 
     
 }
     public mutating func nullValueForKey(key:String) {
-        try! updateValue(NSNull(), forKey: key, typesafe: false)
+        updateValue(NSNull(), forKey: key, typesafe: false)
     }
 }
 
