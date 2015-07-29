@@ -73,7 +73,7 @@ extension JSONValue {
             switch self {
             case .JArray (var a):
                 if key >= a.endIndex {
-                    
+                    fatalError("Tried to insert a value beyond the final value in the array")
                 }
                 else if let nV = newValue {
                     a[key] = nV
@@ -93,7 +93,7 @@ extension JSONValue {
             switch self {
             case .JArray (var a):
                 if key >= a.endIndex {
-                    
+                    fatalError("Tried to insert a value beyond the final value in the array")
                 }
                 else if let nV = newValue {
                     a[key] = JSONValue(value:nV)
@@ -103,6 +103,38 @@ extension JSONValue {
                 return
             }}
     }
+    
+    public subscript (key:Int, typesafe:Bool) -> AnyObject? {
+        get {
+            return nil
+        }
+        set(newValue) {
+            switch self {
+            case .JArray (var a):
+                if key >= a.endIndex {
+                    fatalError("Tried to insert a value beyond the final value in the array")
+                }
+                guard let nV = newValue else {
+                    fatalError("No value to insert into array")
+                }
+                
+                if typesafe == false {
+                    a[key] = JSONValue(value:nV)
+                    self = .JArray(a)
+                }
+                else if typesafe == true {
+                    a[key] = typesafeReplace(a[key], value:nV)
+                    self = .JArray(a)
+                }
+                
+            default:
+                return
+            }}
+    }
+    
+
+    
+    
 }
 
 

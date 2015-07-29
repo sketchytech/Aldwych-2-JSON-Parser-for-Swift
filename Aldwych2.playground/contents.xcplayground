@@ -5,7 +5,8 @@
         <page name='Retrieve Values'/>
         <page name='Editing Values'/>
         <page name='Adding and replacing'/>
-        <page name='Type Safety'/>
+        <page name='Type Safety in JSONArray'/>
+        <page name='Type Safety in JSONDictionary'/>
         <page name='XMLParsing'/>
     </pages>
 </playground>

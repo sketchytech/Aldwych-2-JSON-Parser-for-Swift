@@ -13,6 +13,7 @@ public enum JSONError:ErrorType {
 // receive data
 public struct JSONParser:JSONParserType {
    
+
     public static func parse(urlPath urlPath:String) throws -> JSONObjectType {
     
         guard let url = NSURL(string:urlPath) else {

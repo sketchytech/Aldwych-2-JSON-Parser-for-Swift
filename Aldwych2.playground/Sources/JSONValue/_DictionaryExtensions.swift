@@ -132,44 +132,19 @@ extension JSONValue {
     public mutating func updateValue(value:AnyObject, forKey key:String, typesafe:Bool = true) {
         switch self {
         case .JDictionary(var dictionary):
-            if typesafe == false || dictionary[key]?.null != nil || dictionary[key] == nil {
+            if typesafe == false || dictionary[key]?.null != nil  {
                 dictionary[key] = JSONValue(value:value)
                 self = .JDictionary(dictionary)
+                break
             }
-            else if dictionary[key]?.str != nil && value as? String != nil {
+            guard let dV = dictionary[key] else {
+                // dictionary key currently has no associated value
                 dictionary[key] = JSONValue(value:value)
                 self = .JDictionary(dictionary)
+                break
             }
-            else if dictionary[key]?.bool != nil && value as? NSNumber != nil  {
-                if ((value as? NSNumber)?.isBoolNumber() == true) {
-                    dictionary[key] = JSONValue(value:value)
-                    self = .JDictionary(dictionary)
-                }
-                else {
-                    fatalError("Attempt to replace bool with number in typesafe mode")
-                }
-            }
-            else if dictionary[key]?.num != nil && value as? NSNumber != nil {
-                if ((value as? NSNumber)?.isBoolNumber() == false) {
-                    dictionary[key] = JSONValue(value:value)
-                    self = .JDictionary(dictionary)
-                }
-                else {
-                    fatalError("Attempt to replace number with bool in typesafe mode")
-                }
-            }
-            else if dictionary[key]?.jsonArray != nil && value as? [AnyObject] != nil {
-                dictionary[key] = JSONValue(value:value)
-                self = .JDictionary(dictionary)
-            }
-            else if dictionary[key]?.jsonDictionary != nil && value as? [String:AnyObject] != nil {
-                dictionary[key] = JSONValue(value:value)
-                self = .JDictionary(dictionary)
-            }
-            else {
-                fatalError("Type is not JSON compatible")
-            }
-
+            dictionary[key] = typesafeReplace(dV, value: value)
+            self = .JDictionary(dictionary)
     
         default:
                  fatalError("Trying to update value for key in non-dictionary type")
