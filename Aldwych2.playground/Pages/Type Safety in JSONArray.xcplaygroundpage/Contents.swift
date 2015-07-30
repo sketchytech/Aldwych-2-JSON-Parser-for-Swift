@@ -11,9 +11,9 @@ var a = JSONArray(array:["One","Two", 3, 4])
 a[0] = 1
 //: You can, however, apply type safety in the following way:
 a[2,.Typesafe] = 2
-a[2]?.num
+a[2].num
 //: To assist in mainting type safety, there are a range of methods for testing whether the current type can be replaced with another:
-if a[1]?.canReplaceWithString() == true {
+if a[1].canReplaceWithString() == true {
     a[1,.Typesafe] = "Three"
 }
 //: If you wish to explicitly identify a lack of type safety then use unsafe:

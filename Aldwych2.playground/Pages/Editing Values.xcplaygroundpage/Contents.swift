@@ -16,9 +16,9 @@ Now we have access to values we are also able to edit values
 
 if var json = jsonValue
 {
-    json["results"]?[0]?["artistName"]?.str // "Jack Johnson"
-    json["results"]?[0]?["artistName"] = "Music Man"
-    json["results"]?[0]?["artistName"]?.str // "Music Man"
+    json["results"]?[0]["artistName"]?.str // "Jack Johnson"
+    json["results"]?[0]["artistName"] = "Music Man"
+    json["results"]?[0]["artistName"]?.str // "Music Man"
     json["results"]?.removeLast()
     json["resultCount"] = json["results"]?.count
 /*:
@@ -33,8 +33,8 @@ But not only can we edit JSONValues we can also easily transform back into data 
     json["results"]?.stringify()
     
     // extract data or stringify a nested dictionary
-    json["results"]?[0]?.jsonData()
-    json["results"]?[0]?.stringify()
+    json["results"]?[0].jsonData()
+    json["results"]?[0].stringify()
     
 }
 

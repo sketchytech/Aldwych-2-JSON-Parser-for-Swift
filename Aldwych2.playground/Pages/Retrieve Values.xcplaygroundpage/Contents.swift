@@ -1,5 +1,6 @@
 //: [Previous](@previous)
 
+
 import Foundation
 
 /*:
@@ -40,7 +41,7 @@ if let json = jsonValue
     }
     
     // Returns a value of known type
-    if let artistName = json["results"]?[0]?["artistName"]?.str {
+    if let artistName = json["results"]?[0]["artistName"]?.str {
         artistName
     }
     

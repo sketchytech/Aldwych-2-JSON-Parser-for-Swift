@@ -16,9 +16,9 @@ protocol JSONArrayProtocol {
     subscript (key:Int) -> JSONDictionary? { get set }
     subscript (key:Int) -> JSONArray? { get set }
 */
-    subscript (key:Int) -> JSONValue? { get set }
-    subscript (key:Int) -> AnyObject? { get set }
-    subscript (key:Int, typesafe:TypeSafety) -> AnyObject? { get set }
+    subscript (key:Int) -> JSONValue { get set }
+    subscript (key:Int) -> AnyObject { get set }
+    subscript (key:Int, typesafe:TypeSafety) -> AnyObject { get set }
     
     mutating func append(value:AnyObject)
     mutating func append(arr:JSONValue)

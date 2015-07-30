@@ -9,33 +9,16 @@ public enum JSONArray:JSONObjectType {
 // subscripting Arrays
 extension JSONArray: JSONArrayProtocol {
   
-    public subscript (key:Int) -> JSONValue? {
+    public subscript (key:Int) -> JSONValue {
         get {
             switch self {
             case .JArray (let a):
                 if key >= a.endIndex {
-                    return nil
+                    fatalError("Beyond bounds of array.")
                 }
                 return a[key]
                 
-            }}
-        set(newValue) {
-            switch self {
-            case .JArray (var a):
-                if key >= a.endIndex {
-                    fatalError("Tried to insert a value beyond the final value in the array.")
-                }
-                else if let nV = newValue {
-                    a[key] = nV
-                    self = .JArray(a)
-                }
-            }}
-    }
-    
-    
-    public subscript (key:Int) -> AnyObject? {
-        get {
-            return nil
+            }
         }
         set(newValue) {
             switch self {
@@ -43,17 +26,37 @@ extension JSONArray: JSONArrayProtocol {
                 if key >= a.endIndex {
                     fatalError("Tried to insert a value beyond the final value in the array.")
                 }
-                else if let nV = newValue {
-                    a[key] = JSONValue(value:nV)
+                else  {
+                    a[key] = newValue
+                    self = .JArray(a)
+                }
+            }
+        }
+    }
+    
+    
+    public subscript (key:Int) -> AnyObject {
+        get {
+fatalError("You shouldn't be trying to retrieve AnyObject.")
+        }
+        set(newValue) {
+            switch self {
+            case .JArray (var a):
+                if key >= a.endIndex {
+                    fatalError("Tried to insert a value beyond the final value in the array.")
+                }
+                else  {
+                    a[key] = JSONValue(value:newValue)
                     self = .JArray(a)
                 }
 
             }}
     }
     
-    public subscript (key:Int, typesafe:TypeSafety) -> AnyObject? {
+    public subscript (key:Int, typesafe:TypeSafety) -> AnyObject {
         get {
-            return nil
+        
+            fatalError("You shouldn't be trying to retrieve AnyObject from a JSONArray!")
         }
         set(newValue) {
             switch self {
@@ -61,16 +64,13 @@ extension JSONArray: JSONArrayProtocol {
                 if key >= a.endIndex {
                     fatalError("Tried to insert a value beyond the final value in the array.")
                 }
-                guard let nV = newValue else {
-                    fatalError("No value to insert into array")
-                }
                 
-                if case .Unsafe = typesafe {
-                    a[key] = JSONValue(value:nV)
+                else if case .Unsafe = typesafe {
+                    a[key] = JSONValue(value:newValue)
                     self = .JArray(a)
                 }
                 else if case .Typesafe = typesafe {
-                    a[key] = typesafeReplace(a[key], value:nV)
+                    a[key] = typesafeReplace(a[key], value:newValue)
                     self = .JArray(a)
                 }
         
