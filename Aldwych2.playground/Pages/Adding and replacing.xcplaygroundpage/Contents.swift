@@ -20,7 +20,7 @@ For adding and replacing dictionaries and arrays currently use the methods updat
 if var json = jsonValue
 {
     // adding a dictionary to a dictionary
-    json.updateValue(["results":10], forKey:"moreResults")
+    json.updateValue(["results":10], forKey:"moreResults", typesafe: .Typesafe)
   
     // removing an object from an array
     json["results"]?.removeAtIndex(0)
