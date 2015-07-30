@@ -1,5 +1,8 @@
 import Foundation
 
+public let typesafe = true
+public let unsafe = false
+
 public func typesafeReplace (jValue:JSONValue, value:AnyObject) -> JSONValue {
     if jValue.str != nil && value as? String != nil {
         return JSONValue(value:value)
