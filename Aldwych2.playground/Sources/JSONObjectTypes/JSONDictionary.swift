@@ -66,10 +66,15 @@ extension JSONDictionary {
     enum JSONTypeError:ErrorType {
         case TypeError(String)
     }
-    public mutating func updateValue(value:AnyObject, forKey key:String, typesafe:Bool = true) {
+    public mutating func updateValue(value:AnyObject, forKey key:String, typesafe:TypeSafety) {
         switch self {
         case .JDictionary(var dictionary):
-            if typesafe == false || dictionary[key]?.null != nil  {
+            if case .Unsafe = typesafe {
+                dictionary[key] = JSONValue(value:value)
+                self = .JDictionary(dictionary)
+                break
+            }
+            else if dictionary[key]?.null != nil  {
                 dictionary[key] = JSONValue(value:value)
                 self = .JDictionary(dictionary)
                 break
@@ -88,7 +93,7 @@ extension JSONDictionary {
     
     public mutating func nullValueForKey(key:String) {
         // this should never ever fail
-         updateValue(NSNull(), forKey: key, typesafe: false)
+         updateValue(NSNull(), forKey: key, typesafe: .Unsafe)
     }
 }
 
@@ -127,6 +132,37 @@ extension JSONDictionary {
          
             }}
     }
+    
+    public subscript (key:String, typesafe:TypeSafety) -> AnyObject? {
+        get {
+            return nil
+        }
+        set(newValue) {
+            
+            switch self {
+            case .JDictionary(var a):
+                guard let nV = newValue else {
+                    fatalError("No value to insert into array")
+                }
+                guard let dV = a[key] else {
+                    // no current key, so add
+                    a[key] = JSONValue(value:nV)
+                    self = .JDictionary(a)
+                    break
+                }
+                if case .Unsafe = typesafe {
+                    a[key] = JSONValue(value:nV)
+                    self = .JDictionary(a)
+                }
+                else if case .Typesafe = typesafe {
+                    a[key] = typesafeReplace(dV, value:nV)
+                    self = .JDictionary(a)
+                }
+ 
+                
+            }}
+    }
+
     
 }
 

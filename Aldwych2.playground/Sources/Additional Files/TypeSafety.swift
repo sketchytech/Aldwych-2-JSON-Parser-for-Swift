@@ -1,8 +1,10 @@
 import Foundation
 
-public let typesafe = true
-public let unsafe = false
-
+/// **.Typesafe**: Type must be exchanged for type (exceptions: where current value is null or key/value not currently in JSONDictionary) **.Unsafe**: any JSON compatible type can be exchanged for any other JSON compatible type.
+public enum TypeSafety {
+    case Typesafe, Unsafe
+}
+/// Takes existing JSONValue and returns a new JSONValue initialized from the value parameter if they are of the same type. If they are not the same type a fatalError crash occurs and a message is sent.
 public func typesafeReplace (jValue:JSONValue, value:AnyObject) -> JSONValue {
     if jValue.str != nil && value as? String != nil {
         return JSONValue(value:value)

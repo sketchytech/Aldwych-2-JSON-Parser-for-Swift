@@ -4,34 +4,41 @@ import Foundation
 
 /*:
 # Type Safety in JSONDictionary
-One of the most important features of Swift is type safety and if we don't carry this over to JSON then JSONArray, JSONDictionary and JSONValue become simply a variation of AnyObject with some added methods.
-
-The implementation of type safety in the first version of Aldwych was done on a whole object basis which could become confusing, so here type safety happens on an update by update basis and typesafe is the default unless you set it to false.
+One of the most important features of Swift is type safety and if we don't carry this over to JSON then JSONArray, JSONDictionary and JSONValue become simply a variation of AnyObject with some added methods. In order to carry type safety over to JSON (and to maintain consistency between JSONArray and JSONDictionary, a regular subscripting of a JSON dictionary is unsafe but can be made safe by using .Typesafe after the subscripting key.
 */
 var a = JSONDictionary(dictionary:["One":true,"Two":1])
 
-a.updateValue(12, forKey: "Two", typesafe: true) // ["One": false, "Two": 12]
-a.updateValue(14, forKey: "Two") // true is always the default for typesafe
+a["Two"] = "fourteen" // unsafe type changes OK
+
+a["Two",.Unsafe] = 14 // unsafe type changes OK and explicitly marked as so
+a["Two",.Typesafe] = 16 // type safe and if type didn't match the current type a crash would occur
+
+/*:
+The implementation of type safety in the first version of Aldwych was done on a whole object basis which could become confusing, so here type safety happens on an update by update basis and this makes it clearer in the code what is happening. And if you wish to use updateValue instead of subscripting this is implemented in a similar way. Although here typesafety must always be specified one way or another.
+*/
+
+a.updateValue(12, forKey: "Two", typesafe: .Typesafe) // ["One": false, "Two": 12]
+
 
 //: The consequences of passing a value of a different type when typesafe is declared as true is a fatalError crash.
-// a.updateValue(false, forKey: "Two") // this code generates a fatal error, uncomment and expand debug area below to see
-//: Where type safety is not a consideration always set typesafe to false.
-a.updateValue("Hello", forKey: "Two", typesafe: false) // ["One": false, "Two": "Hello"]
+// a.updateValue(false, forKey: "Two", typesafe: .Typesafe) // this code generates a fatal error, uncomment and expand debug area below to see
+//: Where type safety is not a consideration always set typesafe to .Unsafe.
+a.updateValue("Hello", forKey: "Two", typesafe: .Unsafe) // ["One": false, "Two": "Hello"]
 //: Currently if a value is null it is assumed that it can be changed to any new value. To convert an existing value to null can be done through turning type safety off but can also be performed in an easier way using a unique method: nullValueForKey()
 a.nullValueForKey("One")
 a["One"]?.null == NSNull() // true
 //: If you are uncertain of the type of value you wish to change, always test first
 if a["One"]?.bool != nil || a["One"]?.null != nil {
-    a.updateValue(true, forKey: "One") // ["One": true, "Two": "Hello"]
+    a.updateValue(true, forKey: "One", typesafe: .Typesafe) // ["One": true, "Two": "Hello"]
 }
 //: and to save repetition there are some convenience methods you can use here:
 
 if a["One"]?.canReplaceWithBool() == true {
-    a.updateValue(false, forKey: "One") // ["One": false, "Two": "Hello"]
+    a.updateValue(false, forKey: "One", typesafe: .Typesafe) // ["One": false, "Two": "Hello"]
 }
 
 a["One"]?.canReplaceWithString() // false, so we'd never try and make a type safe substitution of the value with a String
 
-//: Type safety for JSONArray is to follow. Aldwych 2.0 is being updated regularly, so please ensure you keep up to date with the latest version of the playground.
+//: Note: Aldwych 2.0 is being updated regularly, so please ensure you keep up to date with the latest version of the playground.
 
 //: [Next](@next)

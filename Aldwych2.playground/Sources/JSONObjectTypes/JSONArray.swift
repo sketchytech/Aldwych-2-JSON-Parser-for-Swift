@@ -51,7 +51,7 @@ extension JSONArray: JSONArrayProtocol {
             }}
     }
     
-    public subscript (key:Int, typesafe:Bool) -> AnyObject? {
+    public subscript (key:Int, typesafe:TypeSafety) -> AnyObject? {
         get {
             return nil
         }
@@ -65,11 +65,11 @@ extension JSONArray: JSONArrayProtocol {
                     fatalError("No value to insert into array")
                 }
                 
-                if typesafe == false {
+                if case .Unsafe = typesafe {
                     a[key] = JSONValue(value:nV)
                     self = .JArray(a)
                 }
-                else if typesafe == true {
+                else if case .Typesafe = typesafe {
                     a[key] = typesafeReplace(a[key], value:nV)
                     self = .JArray(a)
                 }
