@@ -1,4 +1,38 @@
 import Foundation
+extension JSONDictionary:Equatable {}
+public func ==(lhs: JSONDictionary, rhs: JSONDictionary) -> Bool {
+    
+            for (k,_) in lhs {
+                if lhs[k] != rhs[k] {
+                    return false
+                }
+            }
+            for (k,_) in rhs {
+                if lhs[k] != rhs[k] {
+                    return false
+                }
+            }
+            return true
+    
+
+}
+public func ==(lhs: JSONDictionary, rhs: JSONValue) -> Bool {
+ 
+    for (k,_) in lhs {
+        if lhs[k] != rhs[k] {
+            return false
+        }
+    }
+    for (k,_) in rhs {
+        if lhs[k] != rhs[k] {
+            return false
+        }
+    }
+    return true
+    
+    
+}
+
 public enum JSONDictionary:JSONObjectType {
     case JDictionary([String:JSONValue])
 }

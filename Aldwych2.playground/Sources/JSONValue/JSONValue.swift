@@ -1,10 +1,5 @@
 import Foundation
 
-extension JSONValue:Equatable {}
-public func ==(lhs: JSONValue, rhs: JSONValue) -> Bool {
-    // FIXME: build equality method
-    return false
-}
 
 // MARK: Core enum
 public enum JSONValue {
@@ -245,5 +240,9 @@ public extension JSONValue {
 
     
 }
+
+
+
+
 
 

@@ -7,6 +7,7 @@
         <page name='Adding and replacing'/>
         <page name='Type Safety in JSONArray'/>
         <page name='Type Safety in JSONDictionary'/>
+        <page name='Equatable'/>
         <page name='XMLParsing'/>
     </pages>
 </playground>

@@ -18,6 +18,9 @@ do {
 catch let e  {
     errorString(error: e)
 }
+
+
+
 /*:
 There are also methods for handling NSData and NSURL available.
 

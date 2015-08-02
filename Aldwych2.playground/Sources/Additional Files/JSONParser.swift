@@ -32,9 +32,7 @@ public struct JSONParser:JSONParserType {
     }
     
     public static func parse(url:NSURL) throws -> JSONObjectType {
-        guard let d = NSData(contentsOfURL: url) else {
-        throw JSONError.DataError("Failed to retrieve data from NSURL.")
-        }
+        let d = try NSData(contentsOfURL: url, options:[])
         return try parse(d)
     }
     
@@ -54,4 +52,8 @@ public struct JSONParser:JSONParserType {
         throw JSONError.JSONValueError("Not a valid dictionary or array for parsing into JSONValue.")
         
     }
+    
+    
+    
+    
 }

@@ -16,6 +16,7 @@ Now we have access to values we are also able to edit values
 
 if var json = jsonValue
 {
+    json["results"]?[0] == json["results"]?[0]
     json["results"]?[0]["artistName"]?.str // "Jack Johnson"
     json["results"]?[0]["artistName"] = "Music Man"
     json["results"]?[0]["artistName"]?.str // "Music Man"

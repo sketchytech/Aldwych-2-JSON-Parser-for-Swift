@@ -8,17 +8,25 @@
 
 import Foundation
 
-protocol JSONArrayProtocol {
+public protocol JSONArrayProtocol {
+
+    typealias Index: ForwardIndexType
     var array:[AnyObject] { get }
     var nsArray:NSArray { get }
+    
     var count:Int { get }
+
+    
+    var startIndex:Index { get }
+    var endIndex:Index { get }
   /*
     subscript (key:Int) -> JSONDictionary? { get set }
     subscript (key:Int) -> JSONArray? { get set }
 */
-    subscript (key:Int) -> JSONValue { get set }
-    subscript (key:Int) -> AnyObject { get set }
-    subscript (key:Int, typesafe:TypeSafety) -> AnyObject { get set }
+    
+    subscript (position:Self.Index) -> JSONValue { get set }
+    subscript (position:Self.Index) -> AnyObject { get set }
+    subscript (position:Self.Index, typesafe:TypeSafety) -> AnyObject { get set }
     
     mutating func append(value:AnyObject)
     mutating func append(arr:JSONValue)

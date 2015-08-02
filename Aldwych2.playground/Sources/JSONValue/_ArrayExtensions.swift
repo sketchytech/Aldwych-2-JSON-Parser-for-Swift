@@ -56,15 +56,34 @@ extension JSONValue: JSONArrayProtocol {
 }
 
 // subscripting Arrays
+// FIXME: adopt Indexable protocol
 extension JSONValue {
-      public subscript (key:Int) -> JSONValue {
+    public typealias Index = Int
+    public var startIndex:Index {
+        switch self {
+        case .JArray(var array):
+            return array.startIndex
+        default:
+            fatalError("This is not an Array!")
+        }
+    }
+    public var endIndex:Index {
+        switch self {
+        case .JArray(var array):
+            return array.endIndex
+        default:
+            fatalError("This is not an Array!")
+        }
+    }
+
+      public subscript (position:Index) -> JSONValue {
         get {
             switch self {
             case .JArray (let a):
-                if key >= a.endIndex {
+                if position >= a.endIndex {
                     fatalError("Beyond bounds of Array.")
                 }
-                return a[key]
+                return a[position]
                 
             default:
                 fatalError("Not an Array.")
@@ -72,11 +91,11 @@ extension JSONValue {
         set(newValue) {
             switch self {
             case .JArray (var a):
-                if key >= a.endIndex {
+                if position >= a.endIndex {
                     fatalError("Tried to insert a value beyond the final value in the array")
                 }
                 else  {
-                    a[key] = newValue
+                    a[position] = newValue
                     self = .JArray(a)
                 }
             default:
@@ -85,18 +104,18 @@ extension JSONValue {
     }
     
     
-    public subscript (key:Int) -> AnyObject {
+    public subscript (position:Index) -> AnyObject {
         get {
             fatalError("You shouldn't be trying to retrieve AnyObject from a JSONArray!")
             }
         set(newValue) {
             switch self {
             case .JArray (var a):
-                if key >= a.endIndex {
+                if position >= a.endIndex {
                     fatalError("Tried to insert a value beyond the final value in the array")
                 }
                 else  {
-                    a[key] = JSONValue(value:newValue)
+                    a[position] = JSONValue(value:newValue)
                     self = .JArray(a)
                 }
             default:
@@ -104,22 +123,22 @@ extension JSONValue {
             }}
     }
     
-    public subscript (key:Int, typesafe:TypeSafety) -> AnyObject {
+    public subscript (position:Index, typesafe:TypeSafety) -> AnyObject {
         get {
             fatalError("You shouldn't be trying to retrieve AnyObject from a JSONArray!")
         }
         set(newValue) {
             switch self {
             case .JArray (var a):
-                if key >= a.endIndex {
+                if position >= a.endIndex {
                     fatalError("Tried to insert a value beyond the final value in the array")
                 }
                 else if case .Unsafe = typesafe {
-                    a[key] = JSONValue(value:newValue)
+                    a[position] = JSONValue(value:newValue)
                     self = .JArray(a)
                 }
                 else if case .Typesafe = typesafe {
-                    a[key] = typesafeReplace(a[key], value:newValue)
+                    a[position] = typesafeReplace(a[position], value:newValue)
                     self = .JArray(a)
                 }
                 
