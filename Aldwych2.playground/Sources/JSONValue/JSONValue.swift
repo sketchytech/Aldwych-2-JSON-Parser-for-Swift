@@ -12,6 +12,7 @@ public enum JSONValue {
 
 // MARK: Extract inner value
 extension JSONValue {
+    
     public var str:String? {
         switch self {
         case .JString(let str):

@@ -21,7 +21,11 @@ public func ==(lhs: JSONArray, rhs: JSONArray) -> Bool {
     
     
 }
-
+extension JSONArray {
+    public func contains(element:AnyObject) -> Bool {
+        return self.contains(JSONValue(value:element))
+    }
+}
 
 
 // subscripting Arrays

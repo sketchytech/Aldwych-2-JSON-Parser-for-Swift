@@ -21,32 +21,52 @@ public func ==(lhs: JSONValue, rhs: JSONValue) -> Bool {
     }
     else if let lA = lhs.jsonArray,
         rA = rhs.jsonArray {
-            if lA.count != rA.count {
-                return false
-            }
-            for v in lA.enumerate() {
-                if v.element != rA[v.index] {
-                    return false
-                }
-                
-            }
-            return true
+            return lA == rA
     }
-    else if let jD = lhs.jsonDictionary,
-        rJD = rhs.jsonDictionary {
-            for (k,_) in jD {
-                if jD[k] != rJD[k] {
-                    return false
-                }
-            }
-            for (k,_) in rJD {
-                if jD[k] != rJD[k] {
-                    return false
-                }
-            }
-            return true
+    else if let lA = lhs.jsonDictionary,
+        rA = rhs.jsonDictionary {
+            return lA == rA
     }
     else {
         return false
     }
 }
+
+// MARK: JSONDictionary == JSONValue
+public func ==(lhs: JSONDictionary, rhs: JSONValue) -> Bool {
+    if let rA = rhs.jsonDictionary {
+            return lhs == rA
+    }
+    else {
+        return false
+    }
+}
+// MARK: JSONValue == JSONDictionary
+public func ==(lhs: JSONValue, rhs: JSONDictionary) -> Bool {
+    if let lA = lhs.jsonDictionary {
+        return rhs == lA
+    }
+    else {
+        return false
+    }
+}
+// MARK: JSONValue == JSONArray
+public func ==(lhs: JSONValue, rhs: JSONArray) -> Bool {
+    if let lA = lhs.jsonArray {
+        return rhs == lA
+    }
+    else {
+        return false
+    }
+}
+
+// MARK: JSONArray == JSONValue
+public func ==(lhs: JSONArray, rhs: JSONValue) -> Bool {
+    if let rA = rhs.jsonArray {
+        return lhs == rA
+    }
+    else {
+        return false
+    }
+}
+

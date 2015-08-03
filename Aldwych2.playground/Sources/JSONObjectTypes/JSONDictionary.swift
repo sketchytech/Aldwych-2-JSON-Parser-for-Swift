@@ -1,13 +1,20 @@
 import Foundation
+
+extension JSONDictionary {
+    public func keys() -> [String] {
+        switch self {
+        case .JDictionary(let dictionary):
+            return [String](dictionary.keys)
+            
+        }
+    }
+}
 extension JSONDictionary:Equatable {}
 public func ==(lhs: JSONDictionary, rhs: JSONDictionary) -> Bool {
     
-            for (k,_) in lhs {
-                if lhs[k] != rhs[k] {
-                    return false
-                }
-            }
-            for (k,_) in rhs {
+        let keys = lhs.keys() + rhs.keys()
+    
+            for k in keys {
                 if lhs[k] != rhs[k] {
                     return false
                 }
@@ -16,22 +23,7 @@ public func ==(lhs: JSONDictionary, rhs: JSONDictionary) -> Bool {
     
 
 }
-public func ==(lhs: JSONDictionary, rhs: JSONValue) -> Bool {
- 
-    for (k,_) in lhs {
-        if lhs[k] != rhs[k] {
-            return false
-        }
-    }
-    for (k,_) in rhs {
-        if lhs[k] != rhs[k] {
-            return false
-        }
-    }
-    return true
-    
-    
-}
+
 
 public enum JSONDictionary:JSONObjectType {
     case JDictionary([String:JSONValue])
