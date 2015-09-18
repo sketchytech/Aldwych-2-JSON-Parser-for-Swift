@@ -33,14 +33,14 @@ extension JSONArray: JSONArrayProtocol {
   
     public var startIndex:Index {
         switch self {
-        case .JArray(var array):
+        case .JArray(let array):
             return array.startIndex
             
         }
     }
     public var endIndex:Index {
         switch self {
-        case .JArray(var array):
+        case .JArray(let array):
             return array.endIndex
         }
         
@@ -283,7 +283,7 @@ extension JSONArray {
         switch self {
         case .JArray(var array):
             let ext:[JSONValue] = arr.map{JSONValue(value:$0)}
-            array.extend(ext)
+            array.appendContentsOf(ext)
             self = JSONArray.JArray(array)
    
         }
@@ -291,7 +291,7 @@ extension JSONArray {
     public mutating func extend(arr:[JSONValue]) {
         switch self {
         case .JArray(var array):
-            array.extend(arr)
+            array.appendContentsOf(arr)
             self = JSONArray.JArray(array)
 
         }

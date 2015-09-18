@@ -23,8 +23,8 @@ public struct JSONParser:JSONParserType {
 }
     
     public static func parse(fileNamed fileName:String) throws -> JSONObjectType {
-        let pE = fileName.pathExtension
-        let name = fileName.stringByDeletingPathExtension
+        let pE = (fileName as NSString).pathExtension
+        let name = (fileName as NSString).stringByDeletingPathExtension
         guard let url = NSBundle.mainBundle().URLForResource(name, withExtension: pE) else {
         throw JSONError.FileError("File not found with name \(fileName) in main bundle.")
         }

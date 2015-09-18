@@ -61,7 +61,7 @@ extension JSONValue {
     public typealias Index = Int
     public var startIndex:Index {
         switch self {
-        case .JArray(var array):
+        case .JArray(let array):
             return array.startIndex
         default:
             fatalError("This is not an Array!")
@@ -69,7 +69,7 @@ extension JSONValue {
     }
     public var endIndex:Index {
         switch self {
-        case .JArray(var array):
+        case .JArray(let array):
             return array.endIndex
         default:
             fatalError("This is not an Array!")
@@ -208,7 +208,7 @@ extension JSONValue {
         switch self {
         case .JArray(var array):
             let ext:[JSONValue] = arr.map{JSONValue(value:$0)}
-            array.extend(ext)
+            array.appendContentsOf(ext)
                 self = JSONValue.JArray(array)
         default:
             return
@@ -217,7 +217,7 @@ extension JSONValue {
     public mutating func extend(arr:[JSONValue]) {
         switch self {
         case .JArray(var array):
-            array.extend(arr)
+            array.appendContentsOf(arr)
             self = JSONValue.JArray(array)
         default:
             return

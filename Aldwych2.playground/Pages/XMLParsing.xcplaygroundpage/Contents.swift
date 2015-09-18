@@ -12,6 +12,7 @@ if let url = NSBundle.mainBundle().URLForResource("styles", withExtension: "xml"
     a = NSData(contentsOfURL: url) {
         let b = XMLParser()
         let c = b.parse(a)
-        let d = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" + XMLParser.json2xml(c)!
+
+let d = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" + XMLParser.json2xml(c)!
         
 }
